@@ -48,7 +48,7 @@ public class AuthController {
      * @param person Объект Person для передачи данных на страницу.
      * @return Строка с именем представления "security/registration".
      */
-    @GetMapping("registration")
+    @GetMapping("/registration")
     public String registrationPage(@ModelAttribute("person") Person person) {
         return "security/registration";
     }

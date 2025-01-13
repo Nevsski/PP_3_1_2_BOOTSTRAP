@@ -143,7 +143,10 @@
     <h2>Modify User</h2>
     <form th:method="POST" th:action="@{/admin/updateUser}" th:object="${person}">
 
-        <input hidden="hidden" type="number" th:field="*{id}" id="idAdd" placeholder="id">
+
+        <!-- Скрытое поле для ID -->
+        <input type="hidden" th:field="*{id}">
+
 
         <label for="firstNameUpdate">Name</label>
         <input type="text" th:field="*{firstName}" id="firstNameUpdate" placeholder="Name">
@@ -158,6 +161,11 @@
         <label for="emailUpdate">Email</label>
         <input type="text" th:field="*{email}" id="emailUpdate" placeholder="email">
         <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+
+        <label for="passwordUpdate">Password</label>
+        <input type="text" th:field="*{password}" id="passwordUpdate" placeholder="password">
+        <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</div>
+        <br>
         <td>
             <label for="user">USER</label><br>
             <input type="checkbox" th:field="*{roles}" id="user" value="2">

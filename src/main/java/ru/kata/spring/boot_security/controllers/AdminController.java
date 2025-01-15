@@ -40,6 +40,14 @@ public class AdminController {
         this.roleValidator = roleValidator;
     }
 
+    @GetMapping("/addUser")
+    public String addUserForm(Model model) {
+        model.addAttribute("person", new Person());
+        model.addAttribute("roles", roleService.getRoles()); // Передача списка ролей в модель
+        return "admin/add_user"; // Имя новой страницы
+    }
+
+
 
     @GetMapping("/users")
     public String getAllUsers(Model model, Principal principal) {

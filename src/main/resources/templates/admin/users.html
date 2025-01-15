@@ -49,6 +49,9 @@
 
         h3 {
             color: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         table {
@@ -78,30 +81,64 @@
         }
 
         a {
-            color: #007bff;
             text-decoration: none;
-            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         a:hover {
-            color: #0056b3;
+            text-decoration: none;
+        }
+
+        .update {
+            background-color: #e7f3ff;
+            color: #007bff;
+            border: 1px solid #007bff;
+        }
+
+        .update:hover {
+            background-color: #d0eaff;
+        }
+
+        .delete {
+            background-color: #ffe7e7;
+            color: #ff5555;
+            border: 1px solid #ff5555;
+        }
+
+        .delete:hover {
+            background-color: #ffcccc;
         }
 
         .logout {
-            background-color: #ff5555 !important; /* Красный цвет для кнопки logout */
+            background-color: #ff5555 !important;
             color: white !important;
         }
 
         .logout:hover {
-            background-color: #cc0000 !important; /* Темно-красный при наведении */
+            background-color: #cc0000 !important;
         }
 
         .details {
             float: right;
             text-align: right;
-            margin-right: 800px; /* Настройте отступ по вашему выбору */
+            margin-right: 800px;
         }
 
+        .add-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .add-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -124,7 +161,10 @@
 </header>
 
 <div class="container">
-    <h3>Users: </h3>
+    <h3>
+        Users
+        <button class="add-button" onclick="window.location.href='/admin/addUser'">Add New User</button>
+    </h3>
     <table border="1">
         <thead>
         <tr>
@@ -144,48 +184,16 @@
             <td th:text="${person.email}">Email</td>
             <td th:text="${person.getRoles()}">Roles</td>
             <td>
-                <a th:href="'admin/updateUser?id=' + ${person.id}">Update</a>
-                <span> | </span>
-                <a th:href="'admin/removeUser?id=' + ${person.id}">Delete</a>
+                <a th:href="'admin/updateUser?id=' + ${person.id}" class="update">Update</a>
+                <a th:href="'admin/removeUser?id=' + ${person.id}" class="delete">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<div id="addUserModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h3>Add User</h3>
-        <form th:action="@{/admin/users}" method="post">
-            <div class="form-group">
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" required>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="roles">Roles:</label>
-                <select id="roles" name="roles" multiple>
-                    <option value="ROLE_ADMIN">Admin</option>
-                    <option value="ROLE_USER">User</option>
-                </select>
 
-            </div>
-            <button type="submit" class="btn">Add User</button>
-        </form>
-    </div>
-</div>
 </body>
 </html>
+
 
 

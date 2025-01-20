@@ -13,6 +13,8 @@ public interface AdminService {
 
     void updateUser(Person person, List<String> roles);
 
+    String encodePassword(String password);
+
     Person createPerson(Person person, Set<Role> roles);
 
     void removeUser(Long id);
@@ -20,6 +22,7 @@ public interface AdminService {
     void save(Person person);
 
     Person findOneById(Long id);
+
 
 
 }

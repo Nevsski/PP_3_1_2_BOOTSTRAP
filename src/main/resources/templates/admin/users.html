@@ -2,133 +2,127 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Admin Panel</title>
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
-            color: #495057;
             margin: 0;
+            color: #343a40;
         }
 
         header {
             background-color: #343a40;
-            color: #fff;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .header-class {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .header-class button {
-            background-color: #28a745;
-            color: #fff;
-            padding: 15px 20px;
-            margin-left: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .header-class button:hover {
-            background-color: #218838;
-        }
-
-        .container {
-            max-width: 90%;
-            margin: 20px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-
-        h3 {
-            color: #007bff;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        header .user-info {
+            font-size: 14px;
+        }
+
+        header .user-info span {
+            font-weight: bold;
+        }
+
+        header button,
+        header form button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        header button:hover,
+        header form button:hover {
+            background-color: #c82333;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #343a40;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #495057;
+        }
+
+        .main-content {
+            margin-left: 200px;
+            padding: 20px;
+        }
+
+        .main-content h1 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tabs button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .tabs button:hover {
+            background-color: #0056b3;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            background-color: white;
+        }
+
+        table thead {
+            background-color: #343a40;
+            color: white;
         }
 
         th, td {
-            border: 1px solid #ddd;
-            padding: 15px;
+            padding: 10px;
+            border: 1px solid #dee2e6;
             text-align: left;
         }
 
-        th {
-            background-color: #0e263f;
-            color: #fff;
-            font-weight: bold;
+        table tbody tr:hover {
+            background-color: #f8f9fa;
         }
 
-        td {
-            transition: background-color 0.3s ease;
-        }
-
-        tr:hover td {
-            background-color: #f0f0f0;
-        }
-
-        a {
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        a:hover {
-            text-decoration: none;
-        }
-
-        .update {
-            background-color: #e7f3ff;
-            color: #007bff;
-            border: 1px solid #007bff;
-        }
-
-        .update:hover {
-            background-color: #d0eaff;
-        }
-
-        .delete {
-            background-color: #ffe7e7;
-            color: #ff5555;
-            border: 1px solid #ff5555;
-        }
-
-        .delete:hover {
-            background-color: #ffcccc;
-        }
-
-        .logout {
-            background-color: #ff5555 !important;
-            color: white !important;
-        }
-
-        .logout:hover {
-            background-color: #cc0000 !important;
-        }
-
-        .details {
-            float: right;
-            text-align: right;
-            margin-right: 800px;
-        }
-
-        .add-button {
-            background-color: #007bff;
-            color: #fff;
+        .btn-edit {
+            background-color: #17a2b8;
+            color: white;
             padding: 5px 10px;
             border: none;
             border-radius: 4px;
@@ -136,64 +130,307 @@
             font-size: 14px;
         }
 
-        .add-button:hover {
-            background-color: #0056b3;
+        a:hover {
+            background-color: #138496;
+        }
+
+        .update {
+            background-color: #17a2b8;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .update:hover {
+            background-color: #138496;
+        }
+
+        .delete {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-edit:hover {
+            background-color: #138496;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
         }
     </style>
 </head>
 <body>
 <header>
-    <div class="header-class">
-        <div class="details">
-            <p th:text="'name: ' + ${personDetails.getPersson().firstName}">Details</p>
-            <p th:text="'role: ' + ${personDetails.getPersson().getRoles()}"></p>
-        </div>
-        <div>
-            <button type="button-header" onclick="window.location.href = '/admin/users'">Go to All Users</button>
-            <button type="button-header" onclick="window.location.href = '/'">Home Page</button>
-        </div>
-        <div>
-            <form type="button-header" th:action="@{/logout}" th:method="POST">
-                <button class="logout" type="submit">Logout</button>
-            </form>
-        </div>
+    <div class="user-info">
+        <span th:text="${personDetails.getPersson().email}">admin@mail.ru</span>
+        with roles: <span th:text="${personDetails.getPersson().getRoles()}">ADMIN USER</span>
     </div>
+    <form th:action="@{/logout}" th:method="POST">
+        <button type="submit">Logout</button>
+    </form>
 </header>
 
-<div class="container">
-    <h3>
-        Users
-        <button class="add-button" onclick="window.location.href='/admin/addUser'">Add New User</button>
-    </h3>
-    <table border="1">
+<div class="sidebar">
+    <a href="/admin/users" class="active">Admin</a>
+    <a href="/user">User</a>
+</div>
+
+<div class="main-content">
+    <h1>Admin Panel</h1>
+    <div class="tabs">
+        <button onclick="window.location.href='/admin/users'">Users table</button>
+        <button onclick="window.location.href='/admin/addUser'">New User</button>
+    </div>
+    <table>
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
+            <th>ID</th>
+            <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>Roles</th>
-            <th>Operations</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="person : ${personList}">
-            <td th:text="${person.getId}">ID</td>
-            <td th:text="${person.firstName}">Name</td>
-            <td th:text="${person.lastName}">Last Name</td>
-            <td th:text="${person.email}">Email</td>
-            <td th:text="${person.getRoles()}">Roles</td>
+            <td th:text="${person.getId}">2</td>
+            <td th:text="${person.firstName}">admin</td>
+            <td th:text="${person.lastName}">admin</td>
+            <td th:text="${person.email}">admin@mail.ru</td>
+            <td th:text="${person.getRoles()}">ADMIN USER</td>
             <td>
-                <a th:href="'admin/updateUser?id=' + ${person.id}" class="update">Update</a>
-                <a th:href="'admin/removeUser?id=' + ${person.id}" class="delete">Delete</a>
-            </td>
+                                <a th:href="'admin/updateUser?id=' + ${person.id}" class="update">Update</a>
+                                <a th:href="'admin/removeUser?id=' + ${person.id}" class="delete">Delete</a>
+                            </td>
         </tr>
         </tbody>
     </table>
 </div>
-
 </body>
 </html>
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Users</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: 'Roboto', sans-serif;-->
+<!--            background-color: #f8f9fa;-->
+<!--            color: #495057;-->
+<!--            margin: 0;-->
+<!--        }-->
+
+<!--        header {-->
+<!--            background-color: #343a40;-->
+<!--            color: #fff;-->
+<!--            padding: 15px;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .header-class {-->
+<!--            display: flex;-->
+<!--            justify-content: flex-end;-->
+<!--        }-->
+
+<!--        .header-class button {-->
+<!--            background-color: #28a745;-->
+<!--            color: #fff;-->
+<!--            padding: 15px 20px;-->
+<!--            margin-left: 10px;-->
+<!--            border: none;-->
+<!--            border-radius: 4px;-->
+<!--            cursor: pointer;-->
+<!--            transition: background-color 0.3s ease;-->
+<!--        }-->
+
+<!--        .header-class button:hover {-->
+<!--            background-color: #218838;-->
+<!--        }-->
+
+<!--        .container {-->
+<!--            max-width: 90%;-->
+<!--            margin: 20px auto;-->
+<!--            background-color: #fff;-->
+<!--            padding: 30px;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        h3 {-->
+<!--            color: #007bff;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: space-between;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        th, td {-->
+<!--            border: 1px solid #ddd;-->
+<!--            padding: 15px;-->
+<!--            text-align: left;-->
+<!--        }-->
+
+<!--        th {-->
+<!--            background-color: #0e263f;-->
+<!--            color: #fff;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        td {-->
+<!--            transition: background-color 0.3s ease;-->
+<!--        }-->
+
+<!--        tr:hover td {-->
+<!--            background-color: #f0f0f0;-->
+<!--        }-->
+
+<!--        a {-->
+<!--            text-decoration: none;-->
+<!--            padding: 5px 10px;-->
+<!--            border-radius: 5px;-->
+<!--            transition: background-color 0.3s ease;-->
+<!--        }-->
+
+<!--        a:hover {-->
+<!--            text-decoration: none;-->
+<!--        }-->
+
+<!--        .update {-->
+<!--            background-color: #e7f3ff;-->
+<!--            color: #007bff;-->
+<!--            border: 1px solid #007bff;-->
+<!--        }-->
+
+<!--        .update:hover {-->
+<!--            background-color: #d0eaff;-->
+<!--        }-->
+
+<!--        .delete {-->
+<!--            background-color: #ffe7e7;-->
+<!--            color: #ff5555;-->
+<!--            border: 1px solid #ff5555;-->
+<!--        }-->
+
+<!--        .delete:hover {-->
+<!--            background-color: #ffcccc;-->
+<!--        }-->
+
+<!--        .logout {-->
+<!--            background-color: #ff5555 !important;-->
+<!--            color: white !important;-->
+<!--        }-->
+
+<!--        .logout:hover {-->
+<!--            background-color: #cc0000 !important;-->
+<!--        }-->
+
+<!--        .details {-->
+<!--            float: right;-->
+<!--            text-align: right;-->
+<!--            margin-right: 800px;-->
+<!--        }-->
+
+<!--        .add-button {-->
+<!--            background-color: #007bff;-->
+<!--            color: #fff;-->
+<!--            padding: 5px 10px;-->
+<!--            border: none;-->
+<!--            border-radius: 4px;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 14px;-->
+<!--        }-->
+
+<!--        .add-button:hover {-->
+<!--            background-color: #0056b3;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<header>-->
+<!--    <div class="header-class">-->
+<!--        <div class="details">-->
+<!--            <p th:text="'name: ' + ${personDetails.getPersson().firstName}">Details</p>-->
+<!--            <p th:text="'role: ' + ${personDetails.getPersson().getRoles()}"></p>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <button type="button-header" onclick="window.location.href = '/admin/users'">Go to All Users</button>-->
+<!--            <button type="button-header" onclick="window.location.href = '/'">Home Page</button>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <form type="button-header" th:action="@{/logout}" th:method="POST">-->
+<!--                <button class="logout" type="submit">Logout</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!--<div class="container">-->
+<!--    <h3>-->
+<!--        Users-->
+<!--        <button class="add-button" onclick="window.location.href='/admin/addUser'">Add New User</button>-->
+<!--    </h3>-->
+<!--    <table border="1">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Id</th>-->
+<!--            <th>Name</th>-->
+<!--            <th>Last Name</th>-->
+<!--            <th>Email</th>-->
+<!--            <th>Roles</th>-->
+<!--            <th>Operations</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="person : ${personList}">-->
+<!--            <td th:text="${person.getId}">ID</td>-->
+<!--            <td th:text="${person.firstName}">Name</td>-->
+<!--            <td th:text="${person.lastName}">Last Name</td>-->
+<!--            <td th:text="${person.email}">Email</td>-->
+<!--            <td th:text="${person.getRoles()}">Roles</td>-->
+<!--            <td>-->
+<!--                <a th:href="'admin/updateUser?id=' + ${person.id}" class="update">Update</a>-->
+<!--                <a th:href="'admin/removeUser?id=' + ${person.id}" class="delete">Delete</a>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
 
 
 

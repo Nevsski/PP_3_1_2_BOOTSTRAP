@@ -53,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
         Person existingPerson = peopleRepository.findById(person.getId())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        // Обновление полей, переданных из формы
+
         existingPerson.setFirstName(person.getFirstName());
         existingPerson.setLastName(person.getLastName());
         existingPerson.setEmail(person.getEmail());
@@ -62,6 +62,7 @@ public class AdminServiceImpl implements AdminService {
         if (person.getPassword() != null && !person.getPassword().isBlank()) {
             existingPerson.setPassword(passwordEncoder.encode(person.getPassword()));
         }
+
 
         Set<Role> roleSet = roles.stream()
                 .map(Long::valueOf)
@@ -74,6 +75,40 @@ public class AdminServiceImpl implements AdminService {
 
         peopleRepository.save(existingPerson);
     }
+
+    @Override
+    public String encodePassword(String password) {
+        return passwordEncoder.encode(password);
+    }
+
+
+//    @Override
+//    public void updateUser(Person person, List<String> roles) {
+//
+//        Person existingPerson = peopleRepository.findById(person.getId())
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+//
+//        // Обновление полей, переданных из формы
+//        existingPerson.setFirstName(person.getFirstName());
+//        existingPerson.setLastName(person.getLastName());
+//        existingPerson.setEmail(person.getEmail());
+//
+//
+//        if (person.getPassword() != null && !person.getPassword().isBlank()) {
+//            existingPerson.setPassword(passwordEncoder.encode(person.getPassword()));
+//        }
+//
+//        Set<Role> roleSet = roles.stream()
+//                .map(Long::valueOf)
+//                .map(roleRepository::findById)
+//                .filter(Optional::isPresent)
+//                .map(Optional::get)
+//                .collect(Collectors.toSet());
+//        existingPerson.setRoles(roleSet);
+//
+//
+//        peopleRepository.save(existingPerson);
+//    }
 
 
     @Override
